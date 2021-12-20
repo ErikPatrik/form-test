@@ -5,6 +5,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueMask from 'v-mask';
+import router from './router'
+
 Vue.use(VueMask);
 
 Vue.use(BootstrapVue);
@@ -15,5 +17,6 @@ Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App),
+    router,
+    render: h => h(App),
 }).$mount('#app')

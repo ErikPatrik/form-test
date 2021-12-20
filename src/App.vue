@@ -1,17 +1,19 @@
 <template>
-  <div id="app">
-      <CountryApi />
-  </div>
+    <div id="app">
+        <div id="nav">
+            <router-link to="/">Home</router-link>
+            <router-link to="/PageForm">1ª Etapa - Formulário</router-link>
+            <router-link to="/PageCountry">2ª Etapa - API de Países</router-link>
+            <router-link to="/PageCountryChart">3ª Etapa - Gráficos comparativos de países</router-link>
+        </div>
+        <router-view />
+    </div>
 </template>
 
 <script>
-import CountryApi from './components/CountryApi.vue'
 
 export default {
-  name: 'App',
-  components: {
-    CountryApi
-}
+    name: 'App',
 }
 </script>
 

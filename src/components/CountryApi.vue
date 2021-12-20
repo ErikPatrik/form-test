@@ -82,8 +82,8 @@ export default({
                 this.table = this.countryUniqueList
             })
             .catch(error => {
-                this.countryUniqueList = []
                 this.getAll()
+                this.countryUniqueList = []
                 this.errors = error
             });
         },

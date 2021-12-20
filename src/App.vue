@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-      <Form />
+      <CountryApi />
   </div>
 </template>
 
 <script>
-import Form from './components/Form.vue'
+import CountryApi from './components/CountryApi.vue'
 
 export default {
   name: 'App',
   components: {
-    Form
-  }
+    CountryApi
+}
 }
 </script>
 

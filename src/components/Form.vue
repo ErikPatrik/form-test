@@ -74,7 +74,7 @@
                 <button type="submit" class="w-100 btn btn-lg btn-primary">Enviar</button>
             </form>
 
-            <div class="" v-if="validate">
+            <!-- <div class="" v-if="validate">
                 <h3>Informações do formulário</h3>
                 <ul>
                     <li>Data de nascimento: {{form.bornAge}}</li>
@@ -87,7 +87,7 @@
                     <li>Cidade: {{form.cidade}}</li>
                     <li>UF: {{form.uf}}</li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -166,7 +166,7 @@ export default({
             if (!this.form.uf) document.getElementById('uf-error').innerHTML = 'Campo obrigatório', this.errors.push('uf-error')
 
             if (this.errors.length === 0) {
-                this.validate = true
+                this.$router.Push("/contact")
             }
         },
         choiceSpecie: function() {
@@ -183,12 +183,10 @@ export default({
         },
         searchCep() {
             let formatterCep = this.form.cep.replace(/[^\d]+/g,'')
-            console.log(formatterCep)
             if (formatterCep.length === 8) {
                 const baseData = `https://viacep.com.br/ws/${ this.form.cep }/json/`
 				this.$http.get(baseData)
                 .then((res) => {
-                    console.log(res)
                     this.form.data = res.data
                     this.form.logradouro = res.data.logradouro
                     this.form.bairro = res.data.bairro
@@ -205,7 +203,7 @@ export default({
             if (formatterNewCep.length === 8) this.form.searchCep()
             else this.form.data = null
         }
-    }
+    },
 })
 
 </script>

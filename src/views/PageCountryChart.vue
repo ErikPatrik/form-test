@@ -1,18 +1,16 @@
 <template>
-    <section class="container">
-        <CountryChart/>
-    </section>
+	<section class="container">
+		<CountryChart />
+	</section>
 </template>
 
 <script>
+import CountryChart from '../components/CountryChart.vue';
 
-import CountryChart from '../components/CountryChart.vue'
-
-export default({
-    name: 'PageCountryChart',
-    components: {
-        CountryChart
-    }
-})
-
+export default {
+	name: 'PageCountryChart',
+	components: {
+		CountryChart,
+	},
+};
 </script>

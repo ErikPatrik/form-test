@@ -1,26 +1,26 @@
 <template>
-    <div id="app">
-        <div id="nav">
-            <router-link to="/">Home</router-link>
-            <router-link to="/PageForm">1ª Etapa - Formulário</router-link>
-            <router-link to="/PageCountry">2ª Etapa - API de Países</router-link>
-            <router-link to="/PageCountryChart">3ª Etapa - Gráficos comparativos de países</router-link>
-        </div>
-        <router-view />
-    </div>
+	<div class="container py-3">
+		<Header />
+	</div>
 </template>
 
 <script>
+import Header from './components/Header.vue';
 
 export default {
-    name: 'App',
-}
+	name: 'App',
+	components: {
+		Header,
+	},
+};
 </script>
 
 <style>
-body  {
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
+body {
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	margin: 0;
+	background-color: rgb(230, 225, 225);
 }
 </style>

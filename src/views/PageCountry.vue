@@ -1,18 +1,16 @@
 <template>
-    <section class="container">
-        <CountryApi/>
-    </section>
+	<section class="container">
+		<CountryApi />
+	</section>
 </template>
 
 <script>
+import CountryApi from '../components/CountryApi.vue';
 
-import CountryApi from '../components/CountryApi.vue'
-
-export default({
-    name: 'PageCountry',
-    components: {
-        CountryApi
-    }
-})
-
+export default {
+	name: 'PageCountry',
+	components: {
+		CountryApi,
+	},
+};
 </script>

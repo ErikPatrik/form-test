@@ -1,11 +1,16 @@
 <template>
-    <h1>Aqui é home, estilizaremos depois =)</h1>
+	<section class="container">
+		<InfoTest />
+	</section>
 </template>
 
 <script>
+import InfoTest from '../components/InfoTest.vue';
 
 export default {
-    name: 'home',
-}
-
+	name: 'home',
+	components: {
+		InfoTest,
+	},
+};
 </script>

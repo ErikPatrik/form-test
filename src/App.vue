@@ -1,7 +1,8 @@
 <template>
-	<div class="container py-3">
-		<Header />
-	</div>
+    <div>
+        <Header />
+        <router-view />
+    </div>
 </template>
 
 <script>
@@ -18,8 +19,8 @@ export default {
 <style>
 body {
 	align-items: center;
-	padding-top: 40px;
-	padding-bottom: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	margin: 0;
 	background-color: rgb(230, 225, 225);
 }

@@ -25,19 +25,12 @@
 						<img :src="c.flags.png" />
 					</td>
 					<td>
-						<a
-							title="Encontrar país no Google Maps"
-							:href="
-								'https://www.google.com.br/maps/place/' +
-								c.name.common
-							"
-							target="_blank"
-						>
+						<a  title="Encontrar país no Google Maps" :href="c.maps.googleMaps" target="_blank">
 							{{ c.name.common }}
 						</a>
 					</td>
-					<td>
-						{{ c.capital }}
+					<td v-if="c.capital ? c.capital.join() : ''">
+						{{ c.capital.join() }}
 					</td>
 					<td>
 						{{ c.name.common }}
@@ -46,7 +39,7 @@
 						<ul>
 							<li v-for="(a, index) in c.languages" :key="index">
 								<a
-									class="country-by-language"
+									class="country-by-language link-info"
 									title="Listar país por idioma"
 									@click="getCountryByLanguage(a)"
 									>{{ a }}</a

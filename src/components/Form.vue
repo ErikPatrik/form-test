@@ -1,12 +1,12 @@
 <template>
 	<div class="col-lg-6 mx-auto mt-5">
-		<h2 class="display-8 fw-normal text-center mb-3">Formulário</h2>
 		<form
 			@submit="verificarFormulario"
 			novalidate="true"
 			class="col-12"
 			v-if="!validate"
 		>
+            <h2 class="display-8 fw-normal text-center mb-3">Formulário</h2>
 			<div class="form-floating mb-3">
 				<input
 					type="date"
@@ -43,7 +43,7 @@
 			</div>
 
 			<select
-				class="form-control mb-3 form-control-lg"
+				class="form-select mb-3 form-control-lg"
 				data-width="fit"
 				v-model="form.selectSpecie"
 				@change="choiceSpecie"
@@ -63,6 +63,7 @@
 				v-model="form.selectedOption"
 				v-if="form.selectSpecie != -1"
 			>
+            <option value=""></option>
 				<option
 					v-for="option in form.species[form.selectSpecie].options"
 					:value="option"
@@ -82,6 +83,7 @@
 					v-if="form.selectedOption === 'Outro'"
 				/>
 				<label for="floatingInput">Informe outra raça</label>
+                <small id="outra-raca-error"></small>
 			</div>
 
 			<div class="form-floating mb-3">
@@ -164,17 +166,18 @@
 		</form>
 
 		<div class="" v-if="validate">
-			<h3>Informações do formulário</h3>
-			<ul>
-				<li>Data de nascimento: {{ form.bornAge }}</li>
-				<li>Nome completo: {{ form.nomeCompleto }}</li>
-				<li>CPF: {{ form.cpf }}</li>
-				<li>Renda mensal: {{ form.rendaMensal }}</li>
-				<li>CEP: {{ form.cep }}</li>
-				<li>Logradouro: {{ form.logradouro }}</li>
-				<li>Bairro: {{ form.bairro }}</li>
-				<li>Cidade: {{ form.cidade }}</li>
-				<li>UF: {{ form.uf }}</li>
+			<h2 class="display-8 fw-normal text-center mb-3">Formulário</h2>
+			<ul class="list-group">
+                <li class="list-group-item active">Informações do formulário</li>
+				<li class="list-group-item">Data de nascimento: {{ form.bornAge }}</li>
+				<li class="list-group-item">Nome completo: {{ form.nomeCompleto }}</li>
+				<li class="list-group-item">CPF: {{ form.cpf }}</li>
+				<li class="list-group-item">Renda mensal: {{ form.rendaMensal }}</li>
+				<li class="list-group-item">CEP: {{ form.cep }}</li>
+				<li class="list-group-item">Logradouro: {{ form.logradouro }}</li>
+				<li class="list-group-item">Bairro: {{ form.bairro }}</li>
+				<li class="list-group-item">Cidade: {{ form.cidade }}</li>
+				<li class="list-group-item">UF: {{ form.uf }}</li>
 			</ul>
 		</div>
 	</div>
@@ -216,8 +219,8 @@ export default {
 				},
 			],
 			outraRaca: '',
-			selectSpecie: -1,
-			selectedOption: '',
+			selectSpecie: 0,
+			selectedOption: 'Pastor alemão',
 			rendaMensal: null,
 			cep: null,
 			data: null,
@@ -259,6 +262,11 @@ export default {
 					this.errors.push('date-error');
 			}
 
+            if (!this.outraRaca)
+            (document.getElementById('outra-raca-error').innerHTML =
+                'Campo obrigatório'),
+                this.errors.push('outra-raca-error');
+
 			if (this.form.cpf) {
 				let formatterCpf = this.form.cpf.replace(/[^\d]+/g, '');
 				const checkCPF = validateCPF(formatterCpf);
@@ -296,6 +304,7 @@ export default {
 					this.errors.push('uf-error');
 
 			if (this.errors.length === 0) {
+                this.errors.length = 0
 				this.validate = true;
 			}
 		},
@@ -353,5 +362,13 @@ export default {
 small {
 	color: rgb(188, 32, 32);
 	font-style: italic;
+}
+
+.form-select {
+    height: 58px;
+}
+
+label {
+    font-size: 12px;
 }
 </style>

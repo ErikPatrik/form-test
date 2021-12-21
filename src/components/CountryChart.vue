@@ -1,29 +1,29 @@
 <template>
+<div>
 	<div class="col-lg-6 mx-auto mt-5">
 		<h2 class="display-8 fw-normal text-center mb-3">
 			Gráficos informativos - Regiões do mundo
 		</h2>
-		<span>Escolha a região </span>
 		<select
 			v-model="region"
 			@change="searchRegion"
 			class="form-select"
 			aria-label="Default select example"
 		>
-			<option selected value="Selecione">Selecione</option>
+			<option selected :value="region">Selecione a região</option>
 			<option v-for="region in regionList" :key="region.name">
 				{{ region }}
 			</option>
 		</select>
-		<div>
-			<apexchart
-				ref="updateChart"
-				type="bar"
-				height="430"
-				:options="chartOptions"
-				:series="series"
-			></apexchart>
-		</div>
+    </div>
+        <div>
+            <apexchart
+                ref="updateChart"
+                type="bar"
+                :options="chartOptions"
+                :series="series"
+            ></apexchart>
+        </div>
 	</div>
 </template>
 
@@ -33,19 +33,21 @@ export default {
 		return {
 			errors: [],
 			regionList: ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'],
-			region: 'Selecione',
+			region: 'Selecione a região',
 			series: [
 				{
-					data: [44, 55, 41, 64, 22, 43, 21],
+					data: [],
+                    name: "Área",
 				},
 				{
-					data: [53, 32, 33, 52, 13, 44, 32],
+					data: [],
+                    name: "População",
 				},
 			],
 			chartOptions: {
 				chart: {
 					type: 'bar',
-					height: 430,
+					height: "3000",
 				},
 				plotOptions: {
 					bar: {
@@ -56,12 +58,7 @@ export default {
 					},
 				},
 				dataLabels: {
-					enabled: true,
-					offsetX: -6,
-					style: {
-						fontSize: '12px',
-						colors: ['#fff'],
-					},
+					enabled: false,
 				},
 				stroke: {
 					show: true,
@@ -76,12 +73,14 @@ export default {
 					categories: [],
 				},
 			},
-		};
+		}
 	},
 	methods: {
 		searchRegion() {
 			if (this.chartOptions.xaxis.categories.length > 0) {
-				this.chartOptions.xaxis.categories.pop();
+                this.chartOptions.xaxis.categories.length = 0
+                this.series[0].data.length = 0
+                this.series[1].data.length = 0
 			}
 			let reg = this.region;
 			this.$emit('region', reg);
@@ -93,13 +92,42 @@ export default {
 				.get(baseData)
 				.then((res) => {
 					const commons = res.data.map((common) => {
-						return common.name.common;
+                        console.log(common)
+						return common.name.common
 					});
+                    const areas = res.data.map((a) => {
+                        return a.area
+                    })
+                    const populations = res.data.map((pop) => {
+                        return pop.population
+                    })
 					this.$refs.updateChart.updateOptions(
 						[
 							{
 								data: this.chartOptions.xaxis.categories.push(
-									commons
+									...commons
+								),
+							},
+						],
+						false,
+						true
+					);
+                    this.$refs.updateChart.updateOptions(
+						[
+							{
+								data: this.series[0].data.push(
+									...areas
+								),
+							},
+						],
+						false,
+						true
+					);
+                    this.$refs.updateChart.updateOptions(
+						[
+							{
+								data: this.series[1].data.push(
+									...populations
 								),
 							},
 						],
@@ -114,3 +142,6 @@ export default {
 	},
 };
 </script>
+
+<style>
+</style>

@@ -1,5 +1,5 @@
 <template>
-	<section class="container">
+	<section>
 		<CountryChart />
 	</section>
 </template>

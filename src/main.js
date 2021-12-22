@@ -7,12 +7,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueMask from 'v-mask';
 import router from './router'
 import VueApexCharts from 'vue-apexcharts'
+
 Vue.use(VueApexCharts)
-
 Vue.component('apexchart', VueApexCharts)
-
 Vue.use(VueMask);
-
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 

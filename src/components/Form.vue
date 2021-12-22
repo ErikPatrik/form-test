@@ -10,7 +10,7 @@
 			<div class="form-floating mb-3">
 				<input
 					type="date"
-					v-model="form.bornAge"
+					v-model="form.dataNascimento"
 					class="form-control"
 					id="floatingInput"
 				/>
@@ -62,8 +62,8 @@
 				data-width="fit"
 				v-model="form.selectedOption"
 				v-if="form.selectSpecie != -1"
+                @change="choiceRaca"
 			>
-            <option value=""></option>
 				<option
 					v-for="option in form.species[form.selectSpecie].options"
 					:value="option"
@@ -83,7 +83,9 @@
 					v-if="form.selectedOption === 'Outro'"
 				/>
 				<label for="floatingInput">Informe outra raça</label>
-                <small id="outra-raca-error"></small>
+                <small v-if="this.errors.indexOf('outra-raca-error') > -1" id="outra-raca-error">
+                    Campo obrigatório
+                </small>
 			</div>
 
 			<div class="form-floating mb-3">
@@ -169,7 +171,7 @@
 			<h2 class="display-8 fw-normal text-center mb-3">Formulário</h2>
 			<ul class="list-group">
                 <li class="list-group-item active">Informações do formulário</li>
-				<li class="list-group-item">Data de nascimento: {{ form.bornAge }}</li>
+				<li class="list-group-item">Data de nascimento: {{ form.dataNascimento }}</li>
 				<li class="list-group-item">Nome completo: {{ form.nomeCompleto }}</li>
 				<li class="list-group-item">CPF: {{ form.cpf }}</li>
 				<li class="list-group-item">Renda mensal: {{ form.rendaMensal }}</li>
@@ -191,7 +193,7 @@ export default {
 		errors: [],
 		validate: false,
 		form: {
-			bornAge: new Date(),
+			dataNascimento: new Date(),
 			nomeCompleto: '',
 			cpf: null,
 			species: [
@@ -250,8 +252,8 @@ export default {
 					'A renda mensal deve ser acima de R$ 1.000,00'),
 					this.errors.push('name-error');
 
-			if (this.form.bornAge) {
-				const age = verifyAge(this.form.bornAge);
+			if (this.form.dataNascimento) {
+				const age = verifyAge(this.form.dataNascimento);
 
 				if (age < 18 || age > 65) {
 					this.errors.push('A idade deve ser entre 18 e 65 anos'),
@@ -261,11 +263,6 @@ export default {
 				this.errors.push('A data de nascimento deve ser informada'),
 					this.errors.push('date-error');
 			}
-
-            if (!this.outraRaca)
-            (document.getElementById('outra-raca-error').innerHTML =
-                'Campo obrigatório'),
-                this.errors.push('outra-raca-error');
 
 			if (this.form.cpf) {
 				let formatterCpf = this.form.cpf.replace(/[^\d]+/g, '');
@@ -281,11 +278,13 @@ export default {
 					this.errors.push('cpf-error');
 			}
 
+            if (this.form.selectedOption === 'Outro' && !this.outraRaca)
+                    this.errors.push('outra-raca-error');
+
 			if (!this.form.cep)
 				(document.getElementById('cep-error').innerHTML =
 					'Campo obrigatório'),
 					this.errors.push('cep-error');
-
 			if (!this.form.logradouro)
 				(document.getElementById('logradouro-error').innerHTML =
 					'Campo obrigatório'),
@@ -308,9 +307,15 @@ export default {
 				this.validate = true;
 			}
 		},
-		choiceSpecie: function () {
+		choiceSpecie: function() {
 			this.form.selectedOption = '';
 		},
+        choiceRaca: function() {
+            console.log(this.errors)
+            if (this.selectedOption !== 'Outro' && this.errors.indexOf('outra-raca-error') > -1) {
+                this.errors.splice(this.errors.indexOf('outra-raca-error'), 1);
+            }
+        },
 		onlyNumber: function (e) {
 			e = e ? e : window.event;
 			var charCode = e.which ? e.which : e.keyCode;

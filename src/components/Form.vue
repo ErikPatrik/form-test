@@ -6,13 +6,14 @@
 			class="col-12"
 			v-if="!validate"
 		>
-            <h2 class="display-8 fw-normal text-center mb-3">Formulário</h2>
+            <h3 class="display-8 fw-normal text-center mb-3">Formulário</h3>
 			<div class="form-floating mb-3">
 				<input
-					type="date"
+					type="text"
 					v-model="form.dataNascimento"
 					class="form-control"
 					id="floatingInput"
+                    onfocus="(this.type='date')"
 				/>
 				<label for="floatingInput">Data de nascimento</label>
 			</div>
@@ -89,14 +90,19 @@
 			</div>
 
 			<div class="form-floating mb-3">
+                <span class="input-symbol-euro"></span>
 				<input
 					v-model="form.rendaMensal"
-					v-on:keypress="onlyNumber(e)"
 					placeholder="Renda mensal"
 					id="floatingInput"
 					class="form-control"
+                    style="padding-left: 40px;"
+                    type="number"
+                    min="0.00"
+                    max="10000.00"
+                    step="0.01"
 				/>
-				<label for="floatingInput">Renda mensal</label>
+				<label for="floatingInput" style="padding: 0.5rem 0.75rem; top: 3px;">Renda mensal</label>
 				<small id="renda-error"></small>
 			</div>
 
@@ -157,6 +163,9 @@
 					placeholder="UF"
 					id="floatingInput"
 					class="form-control"
+                    maxlength="2"
+                    oninput="this.value = this.value.toUpperCase()"
+                    v-on:keypress="onlyText($event)"
 				/>
 				<label for="floatingInput">UF</label>
 				<small id="uf-error"></small>
@@ -168,7 +177,7 @@
 		</form>
 
 		<div class="" v-if="validate">
-			<h2 class="display-8 fw-normal text-center mb-3">Formulário</h2>
+			<h3 class="display-8 fw-normal text-center mb-3">Dados do formulário</h3>
 			<ul class="list-group">
                 <li class="list-group-item active">Informações do formulário</li>
 				<li class="list-group-item">Data de nascimento: {{ form.dataNascimento }}</li>
@@ -193,7 +202,7 @@ export default {
 		errors: [],
 		validate: false,
 		form: {
-			dataNascimento: new Date(),
+			dataNascimento: '',
 			nomeCompleto: '',
 			cpf: null,
 			species: [
@@ -303,6 +312,9 @@ export default {
 					this.errors.push('uf-error');
 
 			if (this.errors.length === 0) {
+                const data_nascimento = new Date(this.form.dataNascimento)
+                const nova_data = data_nascimento.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+                this.form.dataNascimento = nova_data
                 this.errors.length = 0
 				this.validate = true;
 			}
@@ -311,24 +323,15 @@ export default {
 			this.form.selectedOption = '';
 		},
         choiceRaca: function() {
-            console.log(this.errors)
             if (this.selectedOption !== 'Outro' && this.errors.indexOf('outra-raca-error') > -1) {
                 this.errors.splice(this.errors.indexOf('outra-raca-error'), 1);
             }
         },
-		onlyNumber: function (e) {
-			e = e ? e : window.event;
-			var charCode = e.which ? e.which : e.keyCode;
-			if (
-				charCode > 31 &&
-				(charCode < 48 || charCode > 57) &&
-				charCode !== 46
-			) {
-				e.preventDefault();
-			} else {
-				return true;
-			}
-		},
+        onlyText: function(e) {
+            let char = String.fromCharCode(e.keyCode)
+            if (/^[A-Za-z]+$/.test(char)) return true
+            else e.preventDefault()
+        },
 		searchCep() {
 			let formatterCep = this.form.cep.replace(/[^\d]+/g, '');
 			if (formatterCep.length === 8) {
@@ -342,7 +345,7 @@ export default {
 						this.form.cidade = res.data.localidade;
 						this.form.uf = res.data.uf;
 					})
-					.catch((error) => console.log(error));
+					.catch((error) => this.errors.push(error));
 			}
 		},
 	},
@@ -375,5 +378,18 @@ small {
 
 label {
     font-size: 12px;
+}
+
+.input-symbol-euro {
+    position: relative;
+}
+.input-symbol-euro input {
+    padding-left:18px;
+}
+.input-symbol-euro:before {
+    position: absolute;
+    top: 25px;
+    content: "R$";
+    left: 15px;
 }
 </style>

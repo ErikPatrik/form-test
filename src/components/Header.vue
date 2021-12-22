@@ -30,7 +30,7 @@
 				<router-link
 					class="me-3 py-2 text-dark text-decoration-none"
 					to="/PageCountryChart"
-					>Gráficos comparativos de países</router-link
+					>API de países - Gráficos</router-link
 				>
 			</nav>
 		</div>
@@ -39,6 +39,5 @@
 
 <script>
 export default {
-	name: 'header',
 };
 </script>

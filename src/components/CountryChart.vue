@@ -92,7 +92,6 @@ export default {
 				.get(baseData)
 				.then((res) => {
 					const commons = res.data.map((common) => {
-                        console.log(common)
 						return common.name.common
 					});
                     const areas = res.data.map((a) => {

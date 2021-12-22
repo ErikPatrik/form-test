@@ -16,7 +16,7 @@
 				<th scope="col">Bandeira</th>
 				<th scope="col">País</th>
 				<th scope="col">Capital</th>
-				<th scope="col">Nome correto</th>
+				<th scope="col">Nome oficial</th>
 				<th scope="col">Idiomas oficiais</th>
 			</thead>
 			<tbody>
@@ -33,7 +33,7 @@
 						{{ c.capital.join() }}
 					</td>
 					<td>
-						{{ c.name.common }}
+						{{ c.name.official }}
 					</td>
 					<td>
 						<ul>
@@ -88,6 +88,7 @@ export default {
 			this.$http
 				.get(urlData)
 				.then((res) => {
+                    console.log(res)
 					urlData;
 					this.countryList = [];
 					this.countryUniqueList = res.data;

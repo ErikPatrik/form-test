@@ -22,6 +22,6 @@ body {
 	padding-top: 20px;
 	padding-bottom: 20px;
 	margin: 0;
-	background-color: rgb(230, 225, 225);
+	background-color: #f1f0f0 !important;
 }
 </style>

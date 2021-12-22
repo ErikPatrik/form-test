@@ -89,7 +89,7 @@
 			<div class="form-floating mb-3">
 				<input
 					v-model="form.rendaMensal"
-					v-on:keypress="onlyNumber"
+					v-on:keypress="onlyNumber(e)"
 					placeholder="Renda mensal"
 					id="floatingInput"
 					class="form-control"

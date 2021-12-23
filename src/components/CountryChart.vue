@@ -1,9 +1,9 @@
 <template>
 <div>
 	<div class="col-lg-6 mx-auto mt-5">
-		<h2 class="display-8 fw-normal text-center mb-3">
+		<h3 class="display-8 fw-normal text-center mb-5">
 			Gráficos informativos - Regiões do mundo
-		</h2>
+		</h3>
 		<select
 			v-model="region"
 			@change="searchRegion"

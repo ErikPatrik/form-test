@@ -1,6 +1,6 @@
 <template>
 	<div class="col-lg-10 mx-auto mt-5">
-		<h2 class="display-8 fw-normal text-center mb-3">API de países</h2>
+		<h3 class="display-8 fw-normal text-center mb-5">API de países</h3>
 		<div class="form-outline mt-5 mb-5">
 			<input
 				type="search"

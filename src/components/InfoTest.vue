@@ -1,7 +1,7 @@
 <template>
 	<div class="col-lg-8 mx-auto mt-5">
 		<div class="pricing-header p-3 pb-md-4 mx-auto">
-			<h2 class="display-8 fw-normal text-center mb-5">Informações</h2>
+			<h3 class="display-8 fw-normal text-center mb-5">Informações</h3>
             <ul class="list-group text-left" >
                 <li class="list-group-item">Formulário: simples registro de dados com validações, além de uma API para busca de endereço via CEP</li>
                 <li class="list-group-item">API de países: busca-se inicialmente todos os países da América, caso seja pesquisado alguma informação, busca-se todos os países do mundo</li>

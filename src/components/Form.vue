@@ -6,7 +6,7 @@
 			class="col-12"
 			v-if="!validate"
 		>
-            <h3 class="display-8 fw-normal text-center mb-3">Formulário</h3>
+            <h3 class="display-8 fw-normal text-center mb-5">Formulário</h3>
 			<div class="form-floating mb-3">
 				<input
 					type="text"
@@ -177,7 +177,6 @@
 		</form>
 
 		<div class="" v-if="validate">
-			<h3 class="display-8 fw-normal text-center mb-3">Dados do formulário</h3>
 			<ul class="list-group">
                 <li class="list-group-item active">Informações do formulário</li>
 				<li class="list-group-item">Data de nascimento: {{ form.dataNascimento }}</li>
